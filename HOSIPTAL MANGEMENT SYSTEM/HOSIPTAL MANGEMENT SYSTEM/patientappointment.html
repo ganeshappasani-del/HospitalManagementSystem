@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hospital Appointment</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#a8edea,#fed6e3);
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container {
+    width:420px;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2 { text-align:center; }
+
+label {
+    display:block;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+input, select, button {
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+}
+
+button {
+    background:#3498db;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover {
+    background:#2980b9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Hospital Appointment</h2>
+
+<form onsubmit="bookAppointment(); return false;">
+
+    <label>Patient Name</label>
+    <input type="text" id="patientName"
+           placeholder="Enter Patient Name" required>
+
+    <label>Patient ID</label>
+    <input type="text" id="patientId"
+           placeholder="Enter Patient ID" required>
+
+    <label>Phone Number</label>
+    <input type="tel" id="phone"
+           placeholder="Enter Phone Number" required>
+
+    <label>Reason for Visit</label>
+    <input type="text" id="reason"
+           placeholder="Enter Reason for Visit" required>
+
+   <label>Select Doctor</label>
+
+<select id="doctor" required>
+
+    <option value="">-- Select Doctor --</option>
+
+    <option>Dr. Ramesh(Telugu) - Cardiologist</option>
+
+    <option>Dr. Sneha(Telugu) - Dentist</option>
+
+    <option>Dr. Arjun(Hindi) - Orthopedic</option>
+
+    <option>Dr. Meena(Telugu)   - Gynecologist</option>
+
+    <option>Dr. Mohan(English) - Cardiologist</option>
+
+    <option>Dr. Ganesh(Telugu) - General Physician</option>
+
+    <option>Dr. Satya Krishna(English) - ENT</option>
+
+    <option>Dr. Sanvi(Hindi) - Neurologist</option>
+
+    <option>Dr. Anju Thomas(Hindi) - Cardiologist</option>
+
+    <option>Dr. Mathew(Hindi) - Dentist</option>
+
+    <option>Dr. lydieya(English) - Orthopedic</option>
+
+    <option>Dr. Lokajna(Hindi)   - Gynecologist</option>
+
+    <option>Dr. Anil(Telugu) - Cardiologist</option>
+
+    <option>Dr. Prasad(English) - General Physician</option>
+
+    <option>Dr. Dharmik(English) - ENT</option>
+
+    <option>Dr. Jastika(English) - Neurologist</option>
+
+</select>
+
+    <label>Appointment Date</label>
+    <input type="date" id="date" required>
+
+    <label>Appointment Time</label>
+    <input type="time" id="time" required>
+
+    <button type="submit">Proceed to Payment</button>
+
+</form>
+</div>
+
+<script>
+
+// Set minimum date = today
+let today = new Date().toISOString().split("T")[0];
+document.getElementById("date").setAttribute("min", today);
+
+function bookAppointment(){
+
+    let patientName = document.getElementById("patientName").value;
+    let patientId = document.getElementById("patientId").value;
+    let phone = document.getElementById("phone").value;
+    let reason = document.getElementById("reason").value;
+
+    let doctor = document.getElementById("doctor").value;
+    let date = document.getElementById("date").value;
+    let time = document.getElementById("time").value;
+
+    let now = new Date();
+    let selectedDateTime = new Date(date + "T" + time);
+
+    if(selectedDateTime < now){
+        alert("Please select a future date and time!");
+        return;
+    }
+
+    localStorage.setItem("patientName", patientName);
+    localStorage.setItem("patientId", patientId);
+    localStorage.setItem("phone", phone);
+    localStorage.setItem("reason", reason);
+
+    localStorage.setItem("doctor", doctor);
+    localStorage.setItem("date", date);
+    localStorage.setItem("time", time);
+
+    window.location.href = "payment.html";
+}
+</script>
+
+</body>
+</html>

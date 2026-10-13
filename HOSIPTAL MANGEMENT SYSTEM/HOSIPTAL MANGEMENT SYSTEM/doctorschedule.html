@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Doctor Schedule</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    margin:0;
+    padding:0;
+    height:100vh;
+    background:linear-gradient(135deg,#a8edea,#fed6e3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Container Card */
+
+.container{
+    background:white;
+    padding:35px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    text-align:center;
+    width:500px;
+}
+
+h2{
+    color:#333;
+    margin-bottom:20px;
+}
+
+/* Table Styling */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #ddd;
+}
+
+th{
+    background:#4CAF50;
+    color:white;
+}
+
+tr:nth-child(even){
+    background:#f2f2f2;
+}
+
+tr:hover{
+    background:#e6f7ff;
+}
+
+/* Button */
+
+button{
+    margin-top:20px;
+    padding:10px 18px;
+    background:linear-gradient(45deg,#ffcc00,#ff9900);
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+    background:linear-gradient(45deg,#ff9900,#ff6600);
+    color:white;
+}
+.doctor-actions{
+    margin-top:20px;
+}
+
+.doctor-actions button{
+    margin:5px;
+    padding:10px 15px;
+    background:#3498db;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.doctor-actions button:hover{
+    background:#2980b9;
+}
+
+#doctorContent{
+    margin-top:20px;
+    text-align:left;
+}
+
+#doctorContent table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+#doctorContent th,
+#doctorContent td{
+    padding:8px;
+    border:1px solid #ddd;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Doctor Schedule</h2>
+
+<table>
+
+<tr>
+<th>Patient Name</th>
+<th>Date</th>
+<th>Time</th>
+</tr>
+
+<tr>
+<td>Ravi</td>
+<td>12 September 2026</td>
+<td>10:00 AM</td>
+</tr>
+
+<tr>
+<td>Anita</td>
+<td>12 September 2026</td>
+<td>11:00 AM</td>
+</tr>
+
+<tr>
+<td>Rahul</td>
+<td>13 September 2026</td>
+<td>09:30 AM</td>
+</tr>
+
+<tr>
+<td>Priya</td>
+<td>13 September 2026</td>
+<td>02:00 PM</td>
+</tr>
+     
+
+<tr>
+<td>Arjun</td>
+<td>14 September 2026</td>
+<td>11:00 AM</td>
+</tr>
+
+<tr>
+<td>Shreya</td>
+<td>14 September 2026</td>
+<td>03:30 AM</td>
+</tr>
+
+<tr>
+<td>Vikram</td>
+<td>15 September 2026</td>
+<td>01:30 AM</td>
+</tr>
+
+<tr>
+<td>Lova</td>
+<td>15 September 2026</td>
+<td>04:30 AM</td>
+</tr>
+
+
+</table>
+<div class="doctor-actions">
+
+    <button onclick="showMedicalHistory()">
+        Medical History
+    </button>
+
+    <button onclick="showPrescriptions()">
+        Manage Prescriptions
+    </button>
+
+</div>
+
+<div id="doctorContent"></div>
+
+
+</div>
+<script>
+
+function showMedicalHistory(){
+
+    document.getElementById("doctorContent").innerHTML = `
+
+        <h3>Patient Medical History</h3>
+
+        <table>
+
+            <tr>
+                <th>Patient</th>
+                <th>Age</th>
+                <th>Diagnosis</th>
+                <th>Allergies</th>
+                <th>Previous Treatment</th>
+            </tr>
+
+            <tr>
+                <td>Ravi</td>
+                <td>30</td>
+                <td>Heart Problem</td>
+                <td>None</td>
+                <td>Medication</td>
+            </tr>
+
+            <tr>
+                <td>Anita</td>
+                <td>25</td>
+                <td>Dental Pain</td>
+                <td>Penicillin</td>
+                <td>Dental Treatment</td>
+            </tr>
+
+            <tr>
+                <td>Rahul</td>
+                <td>40</td>
+                <td>Fracture</td>
+                <td>None</td>
+                <td>Physiotherapy</td>
+            </tr>
+            <tr>
+                <td>Priya</td>
+                <td>28</td>
+                <td>Diabetes</td>
+                <td>None</td>
+                <td>Insulin Therapy</td>
+            </tr>
+            <tr>
+                <td>Arjun</td>
+                <td>35</td>
+                <td>Hypertension</td>
+                <td>None</td>
+                <td>Lifestyle Changes</td>
+            </tr>
+            <tr>
+                <td>Shreya</td>
+                <td>32</td>
+                <td>Asthma</td>
+                <td>Pollen</td>
+                <td>Inhaler</td>
+            </tr>
+            <tr>
+                <td>Vikram</td>
+                <td>45</td>
+                <td>Arthritis</td>
+                <td>None</td>
+                <td>Physical Therapy</td>
+            </tr>
+            <tr>
+                <td>Lova</td>
+                <td>29</td>
+                <td>Migraine</td>
+                <td>None</td>
+                <td>Medication</td>
+            </tr>
+
+        </table>
+    `;
+}
+
+
+function showPrescriptions(){
+
+    document.getElementById("doctorContent").innerHTML = `
+
+        <h3>Manage Prescriptions</h3>
+
+        <table>
+
+            <tr>
+                <th>Patient</th>
+                <th>Medicine</th>
+                <th>Dosage</th>
+                <th>Duration</th>
+                <th>Instructions</th>
+            </tr>
+
+            <tr>
+                <td>Ravi</td>
+                <td>Paracetamol</td>
+                <td>500 mg</td>
+                <td>5 Days</td>
+                <td>After Food</td>
+            </tr>
+
+            <tr>
+                <td>Anita</td>
+                <td>Amoxicillin</td>
+                <td>250 mg</td>
+                <td>7 Days</td>
+                <td>Twice Daily</td>
+            </tr>
+
+            <tr>
+                <td>Rahul</td>
+                <td>Calcium</td>
+                <td>500 mg</td>
+                <td>30 Days</td>
+                <td>Once Daily</td>
+            </tr>
+            <tr>
+                <td>Priya</td>
+                <td>Metformin</td>
+                <td>500 mg</td>
+                <td>60 Days</td>
+                <td>After Food</td>
+            </tr>
+            <tr>
+                <td>Arjun</td>
+                <td>Lisinopril</td>
+                <td>10 mg</td>
+                <td>30 Days</td>
+                <td>Once Daily</td>
+            </tr>
+            <tr>
+                <td>Shreya</td>
+                <td>Albuterol</td>
+                <td>2 puffs</td>
+                <td>As Needed</td>
+                <td>Inhaler</td>
+            </tr>
+            <tr>
+                <td>Vikram</td>
+                <td>Ibuprofen</td>
+                <td>400 mg</td>
+                <td>7 Days</td>
+                <td>After Food</td>
+            </tr>
+
+        </table>
+    `;
+}
+
+</script>
+
+</body>
+</html>

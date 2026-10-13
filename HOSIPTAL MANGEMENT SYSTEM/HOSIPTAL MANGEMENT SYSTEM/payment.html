@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Page</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+}
+
+h1{
+    text-align:center;
+}
+
+.payment-box{
+    background:white;
+    width:350px;
+    margin:20px auto;
+    padding:20px;
+    border-radius:8px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+label{
+    display:block;
+    margin-top:10px;
+}
+
+input, select{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+}
+
+button{
+    margin-top:15px;
+    width:100%;
+    padding:10px;
+    background:#27ae60;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.success{
+    display:none;
+    text-align:center;
+    margin-top:30px;
+}
+
+.success h2{
+    color:green;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Payment Details</h1>
+
+<div class="payment-box" id="paymentForm">
+<div id="appointmentDetails"></div>
+
+<form onsubmit="return paymentDone()">
+
+<label>Card Number</label>
+<input type="text" id="card" maxlength="16" required>
+
+<label>Payment Method</label>
+<select>
+<option>Credit Card</option>
+<option>Debit Card</option>
+<option>UPI</option>
+</select>
+
+<label>Payment Date</label>
+<input type="date" id="payDate" required>
+
+<label>Password</label>
+<input type="password" maxlength="10" required>
+
+<label>Enter Amount</label>
+<input type="number" id="amount" required>
+
+<button type="submit">Pay Now</button>
+
+</form>
+
+</div>
+
+<div class="success" id="successMessage">
+<h2>Payment Successful!</h2>
+<p>Your appointment is confirmed.</p>
+</div>
+
+<script>
+
+// Set minimum date = today
+let today = new Date().toISOString().split("T")[0];
+document.getElementById("payDate").setAttribute("min", today);
+
+function paymentDone(){
+
+    let card = document.getElementById("card").value;
+    let payDate = document.getElementById("payDate").value;
+    let amount = document.getElementById("amount").value;
+
+    let now = new Date();
+    let selectedDate = new Date(payDate);
+
+    // ❌ Past date check
+    if(selectedDate < new Date(today)){
+        alert("Payment date cannot be in the past!");
+        return false;
+    }
+
+    // ❌ Card validation
+    if(card.length !== 10 || isNaN(card)){
+        alert("Enter valid 16-digit card number!");
+        return false;
+    }
+
+    // ❌ Amount validation
+    if(amount <= 0){
+        alert("Enter valid amount!");
+        return false;
+    }
+
+    // ✅ Success
+    document.getElementById("paymentForm").style.display="none";
+    document.getElementById("successMessage").style.display="block";
+
+    return false;
+    let patientName = localStorage.getItem("patientName");
+let patientId = localStorage.getItem("patientId");
+let doctor = localStorage.getItem("doctor");
+let date = localStorage.getItem("date");
+let time = localStorage.getItem("time");
+let reason = localStorage.getItem("reason");
+
+document.getElementById("appointmentDetails").innerHTML = `
+    <h3>Appointment Details</h3>
+    <p><b>Patient:</b> ${patientName}</p>
+    <p><b>Patient ID:</b> ${patientId}</p>
+    <p><b>Doctor:</b> ${doctor}</p>
+    <p><b>Date:</b> ${date}</p>
+    <p><b>Time:</b> ${time}</p>
+    <p><b>Reason:</b> ${reason}</p>
+`;
+}
+
+</script>
+
+</body>
+</html>

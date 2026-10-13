@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LOGIN PAGE</title>
+window.location.href = "alllogin.html";g
+
+<style>
+body{
+    font-family: Arial;
+    background:linear-gradient(135deg,#a8edea,#fed6e3);
+    text-align:center;
+}
+
+.box{
+    background:lightskyblue;
+    width:300px;
+    margin:100px auto;
+    padding:20px;
+    border-radius:8px;
+}
+
+input{
+    width:100%;
+    padding:8px;
+    margin:8px 0;
+}
+
+button{
+    padding:8px 15px;
+    margin:5px;
+    background:gold;
+    border:none;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h2 id="title"></h2>
+
+<div class="box">
+
+<input type="text" id="userId" placeholder="ID">
+<input type="text" id="name" placeholder="Name">
+<input type="tel" id="number" placeholder="Phone Number">
+
+<button onclick="goMain()">LOGIN</button>
+
+</div>
+
+<script>
+
+let role = new URLSearchParams(window.location.search).get('role');
+
+document.getElementById("title").innerHTML = role + " Login";
+
+if(role === "Patient"){
+    document.getElementById("userId").placeholder = "Enter Patient ID";
+}
+else if(role === "Doctor"){
+    document.getElementById("userId").placeholder = "Enter Doctor ID";
+}
+else if(role === "Admin"){
+    document.getElementById("userId").placeholder = "Enter Admin ID";
+}
+
+function goMain(){
+
+let id = document.getElementById("userId").value;
+
+if(id === ""){
+alert("Please enter ID");
+return;
+}
+
+alert(role + " Login Successful");
+
+if(role === "Patient"){
+window.location.href = "patientappointment.html";
+}
+
+else if(role === "Doctor"){
+window.location.href = "doctorschedule.html";
+}
+
+else if(role === "Admin"){
+window.location.href = "admin.html";
+}
+
+}
+
+</script>
+
+</body>
+</html>

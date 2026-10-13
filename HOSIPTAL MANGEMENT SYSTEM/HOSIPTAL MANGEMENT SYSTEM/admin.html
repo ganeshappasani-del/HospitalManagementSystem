@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    margin:0;
+    padding:0;
+    height:100vh;
+    background:linear-gradient(135deg,#a8edea,#fed6e3);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    background:white;
+    width:700px;
+    padding:35px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+h2{
+    color:#333;
+    margin-bottom:20px;
+}
+
+button{
+    padding:10px 18px;
+    margin:8px;
+    font-size:15px;
+    font-weight:bold;
+    background:linear-gradient(45deg,#ffcc00,#ff9900);
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+    background:linear-gradient(45deg,#ff9900,#ff6600);
+    color:white;
+}
+td button{
+    display:inline-block;
+    width:auto;
+    padding:5px 8px;
+    margin:2px;
+    font-size:12px;
+}
+
+#content{
+    margin-top:20px;
+}
+
+/* Table Styling */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+    table-layout:fixed;
+}
+
+th,td{
+    padding:10px;
+    border:1px solid #ddd;
+}
+
+th{
+    background:#4CAF50;
+    color:white;
+}
+
+tr:nth-child(even){
+    background:#f2f2f2;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Admin Dashboard</h2>
+
+<button onclick="manageDoctors()">Manage Doctors</button>
+<button onclick="managePatients()">Manage Patients</button>
+<button onclick="viewAppointments()">View Appointments</button>
+<button onclick="manageResources()">Resource Allocation</button>
+<button onclick="staffSchedule()">Staff Schedule</button>
+
+<div id="content"></div>
+
+</div>
+
+<script>
+
+let doctors = [
+{id:"D101", name:"Dr. Ramesh", spec:"Cardiologist", phone:"9876543210"},
+{id:"D102", name:"Dr. Sneha", spec:"Dentist", phone:"9876543211"},
+{id:"D103", name:"Dr. Arjun", spec:"Orthopedic", phone:"9876543212"},
+{id:"D104", name:"Dr. Meena", spec:"Gynecologist", phone:"9876543213"},
+{id:"D105", name:"Dr. Mohan", spec:"ENT Specialist", phone:"9876543214"},
+{id:"D106", name:"Dr. Ganesh", spec:"Neurologist", phone:"9876543215"},
+{id:"D107", name:"Dr. Satya krishna", spec:"Dermatologist", phone:"9876543216"},
+{id:"D108", name:"Dr. Sanvi", spec:"Pediatrician", phone:"9876543217"},
+{id:"D109", name:"Dr.Anju Thomas ", spec:"Psychiatrist", phone:"9876543218"},
+{id:"D110", name:"Dr. Mathew", spec:"Cardiologist", phone:"9876543219"},
+];
+
+function manageDoctors(){
+
+let html = "<h3>Doctor List</h3>";
+
+html += "<table><tr><th>ID</th><th>Name</th><th>Spec</th><th>Phone</th><th>Action</th></tr>";
+
+doctors.forEach((d, i)=>{
+
+html += `<tr>
+<td>${d.id}</td>
+<td>${d.name}</td>
+<td>${d.spec}</td>
+<td>${d.phone}</td>
+<td>
+<button onclick="editDoctor(${i})">Edit</button>
+<button onclick="deleteDoctor(${i})">Delete</button>
+</td>
+</tr>`;
+
+});
+
+html += "</table>";
+
+document.getElementById("content").innerHTML = html;
+}
+
+// EDIT
+function editDoctor(i){
+
+let name = prompt("Edit Name:", doctors[i].name);
+let spec = prompt("Edit Spec:", doctors[i].spec);
+let phone = prompt("Edit Phone:", doctors[i].phone);
+
+doctors[i].name = name;
+doctors[i].spec = spec;
+doctors[i].phone = phone;
+
+manageDoctors();
+}
+
+// DELETE
+function deleteDoctor(i){
+doctors.splice(i,1);
+manageDoctors();
+}
+
+let patients = [
+{id:"P101", name:"Ravi", age:30, disease:"Heart Problem", bed:"B1", extra:"-" },
+{id:"P102", name:"Anitha", age:25, disease:"Dental Pain", bed:"B2", extra:"-" },
+{id:"P103", name:"Rahul", age:40, disease:"Fracture", bed:"B3", extra:"-" },
+{id:"P104", name:"Priya", age:35, disease:"Pregnancy Checkup", bed:"B4", extra:"-" },
+{id:"P105", name:"Arjun", age:28, disease:"Stunt Injury", bed:"B5", extra:"-" },
+{id:"P106", name:"Shreya", age:32, disease:"Leg Fracture", bed:"B6", extra:"-" },
+{id:"P107", name:"Vikram", age:45, disease:"Ear Infection", bed:"B7", extra:"-" },
+{id:"P108", name:"Lova", age:29, disease:"Migraine", bed:"B8", extra:"-" }
+];
+
+function managePatients(){
+
+let html = "<h3>Patient List</h3>";
+html += "<button onclick='addPatient()'>Add Patient</button>";
+
+html += "<table><tr><th>ID</th><th>Name</th><th>Age</th><th>Disease</th><th>Bed</th><th>Extra</th><th>Action</th></tr>";
+
+patients.forEach((p,i)=>{
+html += `<tr>
+<td>${p.id}</td>
+<td>${p.name}</td>
+<td>${p.age}</td>
+<td>${p.disease}</td>
+<td>${p.bed}</td>
+<td>${p.extra}</td>
+<td>
+<button onclick="editPatient(${i})">Edit</button>
+<button onclick="deletePatient(${i})">Delete</button>
+</td>
+</tr>`;
+});
+
+html += "</table>";
+document.getElementById("content").innerHTML = html;
+}
+
+function addPatient(){
+let id = prompt("ID:");
+let name = prompt("Name:");
+let age = prompt("Age:");
+let disease = prompt("Disease:");
+let bed = prompt("Bed:");
+
+patients.push({id,name,age,disease,bed});
+managePatients();
+}
+
+function editPatient(i){
+patients[i].name = prompt("Name:", patients[i].name);
+patients[i].bed = prompt("Bed:", patients[i].bed);
+managePatients();
+}
+
+function deletePatient(i){
+patients.splice(i,1);
+managePatients();
+}
+
+let appointments = [
+{id:"A201", patient:"Ravi", doctor:"Dr. Ramesh", date:"12 Sep 2026", time:"10:00 AM" },
+{id:"A202", patient:"Anitha", doctor:"Dr. Sneha", date:"12 Sep 2026", time:"11:00 AM" },
+{id:"A203", patient:"Rahul", doctor:"Dr. Arjun", date:"13 Sep 2026", time:"09:30 AM" },
+{id:"A204", patient:"Priya", doctor:"Dr. Meena", date:"13 Sep 2026", time:"02:00 PM" },
+{id:"A205", patient:"Arjun", doctor:"Dr. Mohan", date:"14 Sep 2026", time:"11:00 AM" },
+{id:"A206", patient:"Shreya", doctor:"Dr. Ganesh", date:"14 Sep 2026", time:"03:00 PM" },
+{id:"A207", patient:"Vikram", doctor:"Dr. Satya Krishna", date:"15 Sep 2026", time:"01:00 PM" },
+{id:"A208", patient:"Lova", doctor:"Dr. Sanvi", date:"15 Sep 2026", time:"04:00 PM" }
+];
+
+function viewAppointments(){
+
+let html = "<h3>Appointment List</h3>";
+
+// ADD BUTTON
+html += "<button onclick='addAppointment()'>Add Appointment</button>";
+
+// TABLE
+html += "<table><tr><th>ID</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Time</th><th>Extra</th><th>Action</th></tr>";
+
+appointments.forEach((a,i)=>{
+
+html += `<tr>
+<td>${a.id}</td>
+<td>${a.patient}</td>
+<td>${a.doctor}</td>
+<td>${a.date}</td>
+<td>${a.time}</td>
+<td>${a.extra}</td>
+<td style="white-space:nowrap;">
+<button onclick="editAppointment(${i})">Edit</button>
+<button onclick="deleteAppointment(${i})">Delete</button>
+</td>
+</tr>`;
+});
+
+html += "</table>";
+
+document.getElementById("content").innerHTML = html;
+}
+
+// ADD
+function addAppointment(){
+
+let id = prompt("Enter Appointment ID:");
+let patient = prompt("Enter Patient Name:");
+let doctor = prompt("Enter Doctor Name:");
+let date = prompt("Enter Date:");
+let time = prompt("Enter Time:");
+
+appointments.push({id, patient, doctor, date, time});
+
+viewAppointments();
+}
+
+// EDIT
+function editAppointment(i){
+
+let patient = prompt("Edit Patient:", appointments[i].patient);
+let doctor = prompt("Edit Doctor:", appointments[i].doctor);
+let date = prompt("Edit Date:", appointments[i].date);
+let time = prompt("Edit Time:", appointments[i].time);
+let extra = prompt("Edit Extra:", appointments[i].extra);
+
+appointments[i].patient = patient;
+appointments[i].doctor = doctor;
+appointments[i].date = date;
+appointments[i].time = time;
+appointments[i].extra = extra;
+
+viewAppointments();
+}
+
+// DELETE
+function deleteAppointment(i){
+appointments.splice(i,1);
+viewAppointments();
+}
+let resources = [
+{type:"General Beds", total:50, allocated:35, extra:"-" },
+{type:"ICU Beds", total:10, allocated:8, extra:"-" },
+{type:"Ventilators", total:15, allocated:10, extra:"-" },
+{type:"Operation Rooms", total:5, allocated:4, extra:"-" },
+{type:"X-Ray Machines", total:3, allocated:2, extra:"-" },
+{type:"MRI Machines", total:2, allocated:1, extra:"-" },
+{type:"CT Scanners", total:2, allocated:1, extra:"-" },
+{type:"Ultrasound Machines", total:4, allocated:3, extra:"-" },
+{type:"Dialysis Machines", total:3, allocated:2, extra:"-" }
+];
+
+function manageResources(){
+
+let html = "<h3>Hospital Resources</h3>";
+
+html += "<table><tr><th>Type</th><th>Total</th><th>Allocated</th><th>Available</th><th>Extra</th><th>Action</th></tr>";
+
+resources.forEach((r,i)=>{
+
+let available = r.total - r.allocated;
+
+html += `<tr>
+<td>${r.type}</td>
+<td>${r.total}</td>
+<td>${r.allocated}</td>
+<td>${available}</td>
+<td>${r.extra}</td>
+<td>
+<button onclick="editResource(${i})">Edit</button>
+</td>
+</tr>`;
+});
+
+html += "</table>";
+document.getElementById("content").innerHTML = html;
+}
+
+function editResource(i){
+
+let allocated = prompt("Allocated:", resources[i].allocated);
+let extra = prompt("Extra:", resources[i].extra);
+
+resources[i].allocated = parseInt(allocated);
+resources[i].extra = extra;
+
+manageResources();
+}
+let staff = [
+{id:"S101", name:"Dr. Ramesh", dept:"Cardiology", shift:"09:00-02:00", extra:"-" },
+{id:"S102", name:"Dr. Sneha", dept:"Dental", shift:"10:00-04:00", extra:"-" },
+{id:"S103", name:"Dr. Arjun", dept:"Orthopedic", shift:"09:30-03:30", extra:"-" },
+{id:"S104", name:"Nurse Anitha", dept:"Emergency", shift:"08:00-04:00", extra:"-" },
+{id:"S105", name:"Nurse Priya", dept:"ICU", shift:"07:00-03:00", extra:"-" },
+{id:"S106", name:"Dr. Leela", dept:"Gynecology", shift:"10:00-04:00", extra:"-" },
+{id:"S107", name:"Nurse Nivedita", dept:"ENT", shift:"09:00-02:00", extra:"-" },
+{id:"S108", name:"Dr. Ganesh", dept:"General Physician", shift:"09:00-05:00", extra:"-" }
+];
+
+function staffSchedule(){
+
+let html = "<h3>Staff Schedule</h3>";
+html += "<button onclick='addStaff()'>Add Staff</button>";
+
+html += "<table><tr><th>ID</th><th>Name</th><th>Dept</th><th>Shift</th><th>Extra</th><th>Action</th></tr>";
+
+staff.forEach((s,i)=>{
+html += `<tr>
+<td>${s.id}</td>
+<td>${s.name}</td>
+<td>${s.dept}</td>
+<td>${s.shift}</td>
+<td>${s.extra}</td>
+<td style="white-space:nowrap;">
+<button onclick="editStaff(${i})">Edit</button>
+<button onclick="deleteStaff(${i})">Delete</button>
+</td>
+</tr>`;
+});
+
+html += "</table>";
+document.getElementById("content").innerHTML = html;
+}
+
+function addStaff(){
+let id = prompt("ID:");
+let name = prompt("Name:");
+let dept = prompt("Department:");
+let shift = prompt("Shift:");
+let extra = prompt("Extra:");
+
+staff.push({id,name,dept,shift,extra});
+staffSchedule();
+}
+
+function editStaff(i){
+staff[i].dept = prompt("Department:", staff[i].dept);
+staff[i].shift = prompt("Shift:", staff[i].shift);
+staff[i].extra = prompt("Extra:", staff[i].extra);
+staffSchedule();
+}
+
+function deleteStaff(i){
+staff.splice(i,1);
+staffSchedule();
+}
+
+</script>
+
+</body>
+</html>
